@@ -15,7 +15,8 @@ Este repositório contém o trabalho final da disciplina de **Teoria em Física 
 
 ### Dados
 - **Fonte**: Dados meteorológicos diários de 2024 para Piracicaba e Manaus.
-- **Arquivo principal**: `Evapo.xlsx` contendo planilhas separadas para cada localidade.
+- **Arquivo principal**: `Evapo.xlsx` contendo planilhas separadas para cada localidade, e dados horários do INMET para Manaus processados em `corrigido/Manaus_interpolado.csv`.
+- **Processamento Manaus**: Dados horários agregados para diário, com radiação global e líquida convertidas multiplicando por 24 horas.
 - **Variáveis**: Estimativas diárias de ETo pelos diferentes métodos (em mm/dia).
 
 ### Processamento
@@ -69,7 +70,10 @@ Os métodos avaliados são classificados em empíricos (baseados apenas em tempe
 ```
 fisicambiental/
 ├── calculo.ipynb              # Notebook principal com todas as análises
+├── calculo_piracicaba.ipynb   # Notebook específico para Piracicaba
 ├── Evapo.xlsx                 # Dados brutos de evapotranspiração
+├── Evapo_2.xlsx               # Dados adicionais (Piracicaba)
+├── coef_calibracao_ET_2024.csv # Coeficientes de calibração
 ├── Dados/                     # Pasta com dados originais
 │   ├── manaus.csv
 │   ├── PETROLINA.csv
@@ -79,6 +83,17 @@ fisicambiental/
 │   ├── Manaus_medias_diarias.csv
 │   ├── Manaus.csv
 │   └── Petrolina.csv
+├── graficos/                  # Gráficos gerados
+│   ├── manaus/
+│   └── Piracicaba/
+├── tabelas/                   # Tabelas de métricas e consolidados
+│   ├── metrics_diarias_ET_2024.csv
+│   ├── metrics_diarias_ET_2024_incl_cal.csv
+│   ├── metrics_mensais_ET_2024.csv
+│   ├── metrics_mensais_ET_2024_incl_cal.csv
+│   ├── Manaus_Metricas_Diarias_vs_PM_2024.csv
+│   └── Piracicaba_ET_2024_consolidado.csv
+├── debug_et.py                # Script de debug
 └── README.md                  # Este arquivo
 ```
 
@@ -116,18 +131,39 @@ pip install pandas numpy matplotlib
 ## Resultados Principais
 
 ### Piracicaba (SP)
-- Melhor performance: [baseado no notebook, mas como não executado, descrever genericamente]
-- Análise climática: Clima subtropical com estação seca definida.
+- **Melhor performance**: Método Camargo Calibrado (ET_CAM_CAL) com RMSE = 0.487 mm/dia, R² = 0.874 e índice d de Willmott = 0.963.
+- **Análise climática**: Clima subtropical com estação seca definida, onde métodos semi-empíricos como Camargo e Hargreaves-Samani corrigido apresentaram bom desempenho.
+- **Comparação geral**: Todos os métodos apresentaram boa correlação com Penman-Monteith, com ET_CAM_CAL sendo o mais preciso.
 
 ### Manaus (AM)
-- Desafios específicos: Clima equatorial úmido com alta variabilidade.
-- Comparações entre métodos empíricos e semi-empíricos.
+- **Melhor performance**: Método Priestley-Taylor (ET_PT) com RMSE = 0.531 mm/dia, R² = 0.849 e índice d de Willmott = 0.928.
+- **Desafios específicos**: Clima equatorial úmido com alta variabilidade, onde métodos empíricos como Thornthwaite e Camargo subestimaram significativamente a ET (bias positivo de ~3.5-4.2 mm/dia).
+- **Comparação geral**: Métodos semi-empíricos apresentaram melhor desempenho que empíricos, com ET_PT sendo o mais equilibrado em termos de precisão e viés.
 
 Os Diagramas de Taylor fornecem uma representação visual da proximidade entre cada método e a referência, considerando desvio padrão, correlação e erro padrão centrado na raiz quadrada da média (CRMSD).
 
+## Comparação de Métodos por Localidade
+
+| Método | Piracicaba (RMSE) | Manaus (RMSE) | Melhor em |
+|--------|-------------------|---------------|-----------|
+| Penman-Monteith | Referência | Referência | - |
+| Priestley-Taylor | 0.614 | 0.531 | Manaus |
+| Thornthwaite | 1.252 | 3.714 | Piracicaba |
+| Thornthwaite-Camargo | 1.269 | 3.707 | Piracicaba |
+| Hargreaves-Samani | 8.649 | 8.266 | Manaus |
+| Hargreaves-Samani Cal. | 0.791 | - | Piracicaba |
+| Camargo | 4.914 | 4.121 | Manaus |
+| Camargo Calibrado | 0.487 | - | Piracicaba |
+
 ## Discussão
 
-Este trabalho contribui para a compreensão da aplicabilidade de métodos simplificados de estimativa de ETo em diferentes contextos climáticos brasileiros, auxiliando na escolha de abordagens adequadas para regiões com dados meteorológicos limitados.
+Este trabalho contribui para a compreensão da aplicabilidade de métodos simplificados de estimativa de ETo em diferentes contextos climáticos brasileiros. Os resultados indicam que:
+
+- Em climas subtropicais (Piracicaba), métodos calibrados como Camargo e Hargreaves-Samani são altamente precisos.
+- Em climas equatoriais úmidos (Manaus), o método Priestley-Taylor apresenta o melhor equilíbrio entre simplicidade e acurácia.
+- Métodos empíricos (Thornthwaite) tendem a subestimar a ET em regiões úmidas, necessitando ajustes ou calibração local.
+
+Estes achados auxiliam na escolha de abordagens adequadas para regiões com dados meteorológicos limitados.
 
 ## Autor
 
@@ -144,7 +180,7 @@ Universidade [Nome da Universidade]
 
 ## Data de Apresentação
 
-18 de novembro de 2025
+23 de novembro de 2025
 
 ## Licença
 
