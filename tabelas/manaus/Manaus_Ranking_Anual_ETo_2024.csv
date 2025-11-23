@@ -1,0 +1,7 @@
+﻿Posição,Método,ETo Anual (mm),Desvio vs PM (mm),% do PM
+1,Hargreaves-Samani,4000.7,2995.5,398.0
+2,Camargo (1971),2414.0,1408.7,240.1
+3,Thornthwaite (clássico),2294.3,1289.1,228.2
+4,Thornthwaite-Camargo,2293.6,1288.3,228.2
+★,Penman-Monteith FAO-56,1005.3,0.0,100.0
+6,Priestley-Taylor,900.3,-104.9,89.6
