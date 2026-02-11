@@ -1,5 +1,7 @@
 # Fisica Ambiental — Evapotranspiracao de Referencia (ETo)
 
+[![DOI](https://zenodo.org/badge/1099438434.svg)](https://doi.org/10.5281/zenodo.18615049)
+
 **PT (Resumo)**
 Este repositorio organiza um estudo academico sobre a estimativa de ETo para Piracicaba (SP) e Manaus (AM), comparando metodos empiricos e semi-empiricos com Penman-Monteith como referencia. O foco e reprodutibilidade: dados brutos, dados corrigidos, resultados intermediarios e produtos finais estao claramente separados.
 
@@ -40,7 +42,9 @@ python -m scripts.cli all --year 2024
 ## How to Cite
 If you use this repository or its outputs in academic work, cite as:
 
-> Vieira, B. M. M. (2026). *Fisica Ambiental — Evapotranspiracao de Referencia (ETo)*. Dataset and analysis code. Universidade Federal do Mato Grosso.
+> Vieira, B. M. M. (2026). *Fisica Ambiental — Evapotranspiracao de Referencia (ETo)*. Dataset and analysis code. Universidade Federal do Mato Grosso. https://doi.org/10.5281/zenodo.18615049
+
+Concept DOI (all versions): https://doi.org/10.5281/zenodo.18615050
 
 BibTeX:
 ```bibtex
@@ -49,7 +53,10 @@ BibTeX:
   title = {Fisica Ambiental --- Evapotranspiracao de Referencia (ETo)},
   year = {2026},
   howpublished = {Dataset and analysis code},
-  institution = {Universidade Federal do Mato Grosso}
+  institution = {Universidade Federal do Mato Grosso},
+  doi = {10.5281/zenodo.18615049},
+  doi_concept = {10.5281/zenodo.18615050},
+  url = {https://doi.org/10.5281/zenodo.18615049}
 }
 ```
 
