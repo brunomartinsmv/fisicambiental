@@ -9,3 +9,6 @@
 
 ## v1.0.1 — 2026-02-11
 - Added concept DOI to citation block.
+
+## v1.0.2 — 2026-02-11
+- Pointed DOI badge to the concept DOI.
