@@ -12,3 +12,7 @@
 
 ## v1.0.2 — 2026-02-11
 - Pointed DOI badge to the concept DOI.
+
+## v1.0.3 - 2026-xx-xx
+- READme.md updated.
+- 
